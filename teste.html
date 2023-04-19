@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <style>
+        body {
+            background-color: rgb(26, 26, 26);
+            color: rgb(184, 191, 198);
+            margin: auto;
+        }
+
+        /* Theme switcher button */
+        .dThemeSwitch {
+            position: relative;
+            display: inline-block;
+            width: 50px;
+            height: 24px;
+            margin-left: 12px;
+            margin-bottom: -8px;
+            pointer-events: none;
+        }
+
+        /* Hide default HTML checkbox */
+        .dThemeSwitch input {
+            display: none;
+        }
+
+        /* The slider */
+        .dThemeSwitch .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #c1c1c1;
+            -webkit-transition: .4s;
+            transition: .4s;
+        }
+
+        .dThemeSwitch .slider:before {
+            position: absolute;
+            content: "";
+            height: 20px;
+            width: 20px;
+            left: 2px;
+            bottom: 2px;
+            background-color: white;
+            -webkit-transition: .4s;
+            transition: .4s;
+        }
+
+        .dThemeSwitch input:checked+.slider {
+            background-color: #43b581;
+        }
+
+        .dThemeSwitch input:focus+.slider {
+            box-shadow: 0 0 1px #2196F3;
+        }
+
+        .dThemeSwitch input:checked+.slider:before {
+            -webkit-transform: translateX(26px);
+            -ms-transform: translateX(26px);
+            transform: translateX(26px);
+        }
+
+        /* Rounded sliders */
+        .dThemeSwitch .slider.round {
+            border-radius: 16px;
+        }
+
+        .dThemeSwitch .slider.round:before {
+            border-radius: 50%;
+        }
+    </style>
+    <script>
+        if (localStorage.getItem('light') === 'true') {
+            let theme_node = document.createElement('link');
+            theme_node.id = 'dtssheet';
+            theme_node.rel = 'stylesheet';
+            theme_node.href = '/css/light-theme.css';
+            document.head.appendChild(theme_node);
+            localStorage.setItem('light', 'true');
+        }
+    </script>
+</head>
+
+<body>
+    <div>
+        Dark <span onclick="enableLightTheme(this)"><label class="dThemeSwitch"><input id="lightThemeEnabler"
+                    type="checkbox"><span class="slider round"></span></label></span> Light
+    </div>
+    <script>
+        function addDTToHeader() {
+            let theme_node = document.createElement("link")
+            theme_node.setAttribute("rel", "stylesheet")
+            theme_node.setAttribute("id", "dtssheet")
+            theme_node.setAttribute("href", "css/light-theme.css")
+            document.querySelector('head').appendChild(theme_node)
+        }
+        let cb = document.getElementById('lightThemeEnabler')
+
+        function enableLightTheme() {
+            if (cb.checked) {
+                localStorage.setItem('light', 'false')
+                if (document.getElementById('dtssheet')) document.querySelector('head').removeChild(document.getElementById('dtssheet'))
+                cb.checked = false
+            } else {
+                cb.checked = true
+                localStorage.setItem('light', 'true')
+                addDTToHeader()
+            }
+        }
+        if (localStorage.getItem('light') === 'true') {
+            cb.checked = true
+            //addDTToHeader()
+        } else {
+            cb.checked = false
+        }
+    </script>
+</body>
+
+</html>

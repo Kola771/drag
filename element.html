@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" type="text/css" href="css/style_clair.css" id="theme-link">
+    <title>Document</title>
+</head>
+
+<body>
+    <div>
+        Light
+        <span class="spanTheme">
+            <label class="dThemeSwitch">
+                <input id="lightThemeEnabler" type="checkbox">
+                <span class="slider round"></span>
+            </label>
+        </span>
+        Dark
+    </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            // Nous allons chercher la balise "link" contenant le thème
+            let themeLink = document.getElementById("theme-link")
+
+            // Nous vérifions si un thème est déjà stocké
+            if (localStorage.theme != null) {
+                // Si un thème est stocké, nous le chargeons dans le href de la balise link
+                themeLink.href = `css/style_${localStorage.theme}.css`
+                if (localStorage.theme === "sombre") {
+                    document.getElementById("lightThemeEnabler").checked = true;
+                } else {
+                    document.getElementById("lightThemeEnabler").checked = false;
+                }
+            } else {
+                // Si aucun thème n'est stocké, nous initialisons le lien
+                themeLink.href = `css/style_clair.css`
+                // Nous stockons le thème clair
+                localStorage.theme = "clair"
+            }
+
+            document.querySelector(".spanTheme").addEventListener("click", () => {
+                if (document.getElementById("lightThemeEnabler").checked === true) {
+                    document.getElementById("lightThemeEnabler").checked = false;
+                    localStorage.theme = "clair"
+                } else {
+                    document.getElementById("lightThemeEnabler").checked = true;
+                    localStorage.theme = "sombre"
+                }
+                themeLink.href = `css/style_${localStorage.theme}.css`
+            })
+        })
+    </script>
+</body>
+
+</html>

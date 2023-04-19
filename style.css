@@ -1,0 +1,69 @@
+body {
+    background-color: rgb(194, 188, 188);
+    color: rgb(49, 50, 51);
+    margin: auto;
+}
+
+/* Theme switcher button */
+.dThemeSwitch {
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 24px;
+    margin-left: 12px;
+    margin-bottom: -8px;
+    pointer-events: none;
+}
+
+/* Hide default HTML checkbox */
+.dThemeSwitch input {
+    display: none;
+}
+
+/* The slider */
+.dThemeSwitch .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #c1c1c1;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+
+.dThemeSwitch .slider:before {
+    position: absolute;
+    content: "";
+    height: 20px;
+    width: 20px;
+    left: 2px;
+    bottom: 2px;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+
+.dThemeSwitch input:checked+.slider {
+    background-color: #43b581;
+}
+
+.dThemeSwitch input:focus+.slider {
+    box-shadow: 0 0 1px #2196F3;
+}
+
+.dThemeSwitch input:checked+.slider:before {
+    -webkit-transform: translateX(26px);
+    -ms-transform: translateX(26px);
+    transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.dThemeSwitch .slider.round {
+    border-radius: 16px;
+}
+
+.dThemeSwitch .slider.round:before {
+    border-radius: 50%;
+}

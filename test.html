@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test</title>
+    <style>
+        .parent {
+            position: relative;
+            height: 600px;
+            background-color: #333;
+        }
+
+        .draggableBox {
+
+            position: absolute;
+
+            width: 80px;
+            height: 60px;
+
+            padding-top: 10px;
+
+            text-align: center;
+
+            font-size: 40px;
+
+            background-color: #222;
+
+            color: #CCC;
+
+            cursor: move;
+            border: 1px solid white;
+
+        }
+    </style>
+</head>
+
+<body>
+    <div class="parent">
+        <div class="draggableBox">1</div>
+
+        <div class="draggableBox">2</div>
+
+        <div class="draggableBox">3</div>
+    </div>
+    <script>
+        function boule() { // On utilise une IEF pour ne pas polluer l'espace global
+
+            let storage = {}; // Contient l'objet du div en cours de déplacement
+
+            function addEvent(element, event, func) { // Une fonction pour gérer les événements sous tous les navigateurs
+
+                if (element.attachEvent) {
+
+                    element.attachEvent('on' + event, func);
+
+                } else {
+
+                    element.addEventListener(event, func, true);
+
+                }
+
+            }
+
+            function init() { // La fonction d'initialisation
+
+                let elements = document.querySelectorAll('.draggableBox')
+
+                elementsLength = elements.length;
+
+                for (let i = 0; i < elementsLength; i++) {
+
+                    addEvent(elements[i], 'mousedown', function (e) { // Initialise le drag & drop
+
+                        let s = storage;
+
+                        s.target = e.target || event.srcElement; //srcElement est un alias propriétaire (implémenté dans Internet Explorer) pour la propriété standard Event. target qui commence à être pris en charge dans d'autres navigateurs à des fins de compatibilité Web.
+
+                        s.offsetX = e.clientX - s.target.offsetLeft;
+
+                        s.offsetY = e.clientY - s.target.offsetTop;
+
+                    });
+
+                    addEvent(elements[i], 'mouseup', function () { // Termine le drag & drop
+
+                        storage = {};
+
+                    });
+
+                }
+
+                let parent = document.querySelector(".parent")
+                let top = 0;
+                let left = 0;
+
+                addEvent(parent, 'mousemove', function (e) { // Permet le suivi du drag & drop
+
+                    let target = storage.target;
+                    if (target) {
+
+                        target.style.top = e.clientY - storage.offsetY + 'px';
+                        top = e.clientY - storage.offsetY;
+                        if(top >= (parent.clientHeight - target.clientHeight)) {
+                            target.style.top = (parent.clientHeight - target.clientHeight) + 'px';
+                        }
+
+                        if(top <= 0)
+                        {
+                            target.style.top = 0 + 'px';
+                        }
+
+                        target.style.left = e.clientX - storage.offsetX + 'px';
+                        left = e.clientX - storage.offsetX;
+                        
+                        if(left >= (parent.clientWidth - target.clientWidth)) {
+                            target.style.left  = (parent.clientWidth - target.clientWidth) + 'px';
+                        }
+
+                        if(left <= 0)
+                        {
+                            target.style.left = 0 + 'px';
+                        }
+                    }
+
+
+                });
+
+            }
+
+            init(); // On initialise le code avec notre fonction toute prête
+
+        }
+        boule()
+    </script>
+</body>
+
+</html>
