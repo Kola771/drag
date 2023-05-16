@@ -1,13 +1,13 @@
 <?php
-function daysPastMonth($mois, $annee)
+function daysPastMonth($months, $years)
 {
     $array = [];
-    $first = getdate(mktime(0, 0, 0, $mois, 1, $annee));
-    // retourne la date du 1er jour du mois
+    $first = getdate(mktime(0, 0, 0, $months, 1, $years));
+    // retourne la date du 1er jour du months
     $ind = ($first['wday'] == 0 ? 6 : $first['wday'] - 1);
-    // retourne le numéro d'ordre 1er jour du mois
-    $numberDay = date("t", mktime(0, 0, 0, $mois, 1, $annee));
-    // retourne le nombre de jours du mois
+    // retourne le numéro d'ordre 1er jour du months
+    $numberDay = date("t", mktime(0, 0, 0, $months, 1, $years));
+    // retourne le nombre de jours du months
 
     // initialisation a blanc du tableau month 
     for ($i = 0; $i < 7; $i++) {
