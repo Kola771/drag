@@ -42,10 +42,15 @@ function daysPastMonth($mois, $annee)
 function test()
 {
     $pastMonth = intval(date("m")) - 1;
-    $currentYear = intval(date("Y"));
+    if ($pastMonth == 0) {
+        $pastMonth = 12;
+        $currentYear = intval(date("Y")) - 1;
+    } else {
+        $currentYear = intval(date("Y"));
+    }
     $daysPastMonth = daysPastMonth($pastMonth, $currentYear);
     return $daysPastMonth;
 }
-var_dump(test());
+print_r(test());
 
 ?>
